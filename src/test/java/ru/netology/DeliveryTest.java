@@ -20,7 +20,7 @@ public class DeliveryTest {
 
     @BeforeEach
     void setUp() {
-        open("http://localhost:9999/");
+        open("http://localhost:9999");
     }
 
     @AfterEach
@@ -32,7 +32,7 @@ public class DeliveryTest {
     @Test
     void validForm() {
         $("[data-test-id='city'] input").setValue("Самара");
-        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("35.13.2077"));
+        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.DELETE);
         $("[data-test-id=date] input").setValue(deliveryDate);
         $("[data-test-id='name'] input").setValue("Иванов Иван");
@@ -45,11 +45,11 @@ public class DeliveryTest {
                 .should(exactText("Заказ успешно забронирован на " + deliveryDate));
     }
 
-    //город на английском
+
     @Test
     void cityEnglish() {
         $("[data-test-id='city'] input").setValue("Moscow");
-        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("35.13.2077"));
+        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.DELETE);
         $("[data-test-id=date] input").setValue(deliveryDate);
         $("[data-test-id='name'] input").setValue("Иванов Иван");
@@ -61,11 +61,11 @@ public class DeliveryTest {
                 .should(exactText("Доставка в выбранный город недоступна"));
     }
 
-    //город через дефис
+
     @Test
     void cityDash() {
         $("[data-test-id='city'] input").setValue("Нижний Новгород");
-        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("35.13.2077"));
+        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.DELETE);
         $("[data-test-id=date] input").setValue(deliveryDate);
         $("[data-test-id='name'] input").setValue("Иванов Иван");
@@ -78,11 +78,11 @@ public class DeliveryTest {
                 .should(exactText("Заказ успешно забронирован на " + deliveryDate));
     }
 
-    //пустое поле города
+
     @Test
     void emptyCityField() {
         $("[data-test-id='city'] input").setValue("");
-        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("35.13.2077"));
+        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.DELETE);
         $("[data-test-id=date] input").setValue(deliveryDate);
         $("[data-test-id='name'] input").setValue("Иванов Иван");
@@ -95,11 +95,11 @@ public class DeliveryTest {
                 .shouldHave(text("Поле обязательно для заполнения"));
     }
 
-    //город из двух слов
+
     @Test
     void twoWords() {
         $("[data-test-id='city'] input").setValue("Санкт-Петербург");
-        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("35.13.2077"));
+        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.DELETE);
         $("[data-test-id=date] input").setValue(deliveryDate);
         $("[data-test-id='name'] input").setValue("Иванов Иван");
@@ -112,11 +112,11 @@ public class DeliveryTest {
                 .should(exactText("Заказ успешно забронирован на " + deliveryDate));
     }
 
-    //двойная фамилия
+
     @Test
     void doubleSurname() {
         $("[data-test-id='city'] input").setValue("Санкт-Петербург");
-        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("35.13.2077"));
+        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.DELETE);
         $("[data-test-id=date] input").setValue(deliveryDate);
         $("[data-test-id='name'] input").setValue("Иванов-Ива Иван");
@@ -129,11 +129,11 @@ public class DeliveryTest {
                 .should(exactText("Заказ успешно забронирован на " + deliveryDate));
     }
 
-    //имя и фамилия на английском
+
     @Test
     void shouldSendFormNaneAndSurnameInEnglish() {
         $("[data-test-id='city'] input").setValue("Санкт-Петербург");
-        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("35.13.2077"));
+        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.DELETE);
         $("[data-test-id=date] input").setValue(deliveryDate);
         $("[data-test-id='name'] input").setValue("Ivanov Ivan");
@@ -146,11 +146,11 @@ public class DeliveryTest {
                 .shouldHave(text("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
     }
 
-    //неверный телефон
+
     @Test
     void wrongPhone() {
         $("[data-test-id='city'] input").setValue("Санкт-Петербург");
-        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("35.13.2077"));
+        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.DELETE);
         $("[data-test-id=date] input").setValue(deliveryDate);
         $("[data-test-id='name'] input").setValue("Иванов Иван");
@@ -163,11 +163,11 @@ public class DeliveryTest {
                 .shouldHave(text("Телефон указан неверно. Должно быть 11 цифр, например, +74579327658."));
     }
 
-    //двойное имя
+
     @Test
     void doubleName() {
         $("[data-test-id='city'] input").setValue("Санкт-Петербург");
-        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("35.13.2077"));
+        String deliveryDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.DELETE);
         $("[data-test-id=date] input").setValue(deliveryDate);
         $("[data-test-id='name'] input").setValue("Иванов Иван-Петр");
@@ -183,7 +183,7 @@ public class DeliveryTest {
     @Test
     void nextDay() {
         $("[data-test-id='city'] input").setValue("Санкт-Петербург");
-        String deliveryDate = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("35.13.2077"));
+        String deliveryDate = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.DELETE);
         $("[data-test-id=date] input").setValue(deliveryDate);
         $("[data-test-id='name'] input").setValue("Иванов Иван");
