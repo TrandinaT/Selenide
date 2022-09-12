@@ -3,6 +3,7 @@ Thumbs.db*
 HELP.md
 .gradle
 build/
+rut
 
 ### STS ###
 .apt_generated
@@ -38,6 +39,7 @@ out/
 *.zip
 *.tar.gz
 *.rar
+*.txt
 
 ### Exclusions ###
 !gradle/wrapper/gradle-wrapper.jar
